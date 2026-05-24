@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ፈተና Hub | Ethiopia Exam Q&A</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Noto+Sans+Ethiopic:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root {
+  --bg: #06080F;
+  --bg2: #0C0F1A;
+  --bg3: #111520;
+  --bg4: #181D2E;
+  --border: #1E2438;
+  --border2: #252B40;
+  --accent: #3B82F6;
+  --accent2: #60A5FA;
+  --green: #22C55E;
+  --red: #EF4444;
+  --gold: #F59E0B;
+  --text: #EDF0F7;
+  --text2: #8892A8;
+  --text3: #4A5268;
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+html, body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* SCREENS */
+.screen { display:none; min-height:100vh; flex-direction:column; animation: fadeIn 0.25s ease; }
+.screen.active { display:flex; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+/* ══ PAYWALL ══ */
+#paywall {
+  background: var(--bg);
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.paywall-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% -10%, rgba(59,130,246,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 80% 80%, rgba(245,158,11,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.paywall-logo {
+  width: 72px; height: 72px;
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  border-radius: 22px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px;
+  margin: 0 auto 20px;
+  box-shadow: 0 0 40px rgba(59,130,246,0.3);
+}
+
+.paywall-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #EDF0F7, #8892A8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.paywall-amharic {
+  font-family: 'Noto Sans Ethiopic', sans-serif;
+  font-size: 15px;
+  color: var(--text2);
+  margin-bottom: 28px;
+}
+
+.features-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 28px;
+  text-align: left;
+}
+
+.feature-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.feature-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.feature-text { font-size: 13px; color: var(--text2); line-height: 1.4; }
+.feature-text strong { color: var(--text); display: block; font-size: 13px; margin-bottom: 2px; }
+
+.price-card {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(99,102,241,0.08));
+  border: 1.5px solid rgba(59,130,246,0.4);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.price-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(59,130,246,0.6), transparent);
+}
+
+.price-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+.price-badge {
+  background: var(--gold);
+  color: #000;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.price-amount {
+  font-family: 'Syne', sans-serif;
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.price-amount span { font-size: 16px; color: var(--text2); font-weight: 400; }
+.price-desc { font-size: 12px; color: var(--text2); }
+
+.btn-pay {
+  width: 100%;
+  padding: 17px;
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  border: none;
+  border-radius: var(--radius);
+  color: white;
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 24px rgba(59,130,246,0.3);
+  margin-bottom: 10px;
+  letter-spacing: 0.3px;
+}
+
+.btn-pay:active { transform: scale(0.98); opacity: 0.9; }
+
+.pay-note { font-size: 11px; color: var(--text3); }
+
+/* ══ MAIN APP ══ */
+#app { background: var(--bg); }
+
+/* TOP NAV */
+.top-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(6,8,15,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 16px;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+}
+
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+}
+
+.nav-logo-icon {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+}
+
+.nav-logo-text {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--text), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-right { display: flex; align-items: center; gap: 8px; }
+
+.nav-badge {
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+.nav-submit-btn {
+  width: 34px; height: 34px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.nav-submit-btn:active { background: var(--bg4); transform: scale(0.93); }
+
+/* LANGUAGE TOGGLE */
+.lang-bar {
+  padding: 10px 16px;
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+}
+
+.lang-btn {
+  padding: 6px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text2);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+}
+
+.lang-btn.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+/* FILTERS */
+.filters-section {
+  padding: 14px 16px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+
+.filter-row::-webkit-scrollbar { display: none; }
+
+.filter-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--text3);
+  flex-shrink: 0;
+  align-self: center;
+  width: 54px;
+}
+
+.filter-chip {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border2);
+  background: var(--bg3);
+  color: var(--text2);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.filter-chip.active {
+  background: var(--bg4);
+  border-color: var(--accent);
+  color: var(--accent2);
+}
+
+/* FEED */
+.feed {
+  flex: 1;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+/* QUESTION CARD */
+.q-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.q-card:active { border-color: var(--border2); }
+
+.q-card-header {
+  padding: 14px 16px 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.q-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.q-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 3px 9px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.tag-exam { background: rgba(59,130,246,0.15); color: var(--accent2); }
+.tag-life { background: rgba(34,197,94,0.12); color: #4ADE80; }
+.tag-math { background: rgba(245,158,11,0.12); color: #FCD34D; }
+.tag-science { background: rgba(168,85,247,0.12); color: #C084FC; }
+.tag-english { background: rgba(239,68,68,0.12); color: #FCA5A5; }
+.tag-history { background: rgba(20,184,166,0.12); color: #5EEAD4; }
+.tag-biology { background: rgba(34,197,94,0.12); color: #86EFAC; }
+.tag-chemistry { background: rgba(234,179,8,0.12); color: #FDE047; }
+.tag-physics { background: rgba(59,130,246,0.12); color: #93C5FD; }
+.tag-grade { background: var(--bg4); color: var(--text2); }
+
+.q-time { font-size: 11px; color: var(--text3); flex-shrink: 0; }
+
+.q-body { padding: 0 16px 14px; }
+
+.q-question {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+
+.q-question.amharic {
+  font-family: 'Noto Sans Ethiopic', sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ══ ANSWER SECTION — work first, then reveal ══ */
+
+/* Multiple choice options */
+.mc-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.mc-opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  background: var(--bg3);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 13px;
+  color: var(--text2);
+  font-family: 'DM Sans', sans-serif;
+  text-align: left;
+  width: 100%;
+}
+
+.mc-opt-letter {
+  width: 26px; height: 26px;
+  border-radius: 7px;
+  background: var(--bg4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text2);
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.mc-opt:active { transform: scale(0.98); }
+
+.mc-opt.selected {
+  border-color: var(--accent);
+  background: rgba(59,130,246,0.07);
+  color: var(--text);
+}
+
+.mc-opt.selected .mc-opt-letter {
+  background: var(--accent);
+  color: white;
+}
+
+.mc-opt.correct {
+  border-color: var(--green) !important;
+  background: rgba(34,197,94,0.08) !important;
+  color: var(--text) !important;
+}
+
+.mc-opt.correct .mc-opt-letter {
+  background: var(--green) !important;
+  color: white !important;
+}
+
+.mc-opt.wrong {
+  border-color: var(--red) !important;
+  background: rgba(239,68,68,0.07) !important;
+}
+
+.mc-opt.wrong .mc-opt-letter {
+  background: var(--red) !important;
+  color: white !important;
+}
+
+.mc-opt:disabled, .mc-opt.disabled { cursor: default; transform: none; pointer-events: none; }
+
+/* Open-ended attempt box */
+.attempt-box {
+  background: var(--bg3);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  width: 100%;
+  min-height: 72px;
+  resize: none;
+  outline: none;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  transition: border-color 0.2s;
+}
+
+.attempt-box:focus { border-color: var(--accent); }
+.attempt-box::placeholder { color: var(--text3); }
+
+/* Show answer button */
+.show-answer-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--bg4);
+  border: 1.5px dashed var(--border2);
+  border-radius: 10px;
+  color: var(--text2);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+.show-answer-btn:hover { border-color: var(--accent); color: var(--accent2); }
+.show-answer-btn:active { transform: scale(0.98); }
+
+/* Revealed answer block */
+.q-answer-wrap {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  animation: revealAnswer 0.22s cubic-bezier(0.22,1,0.36,1);
+  transform-origin: top;
+}
+
+@keyframes revealAnswer {
+  from { opacity: 0; transform: scaleY(0.7) translateY(-8px); }
+  to   { opacity: 1; transform: scaleY(1) translateY(0); }
+}
+
+.q-answer-header {
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.answer-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(34,197,94,0.5);
+  flex-shrink: 0;
+}
+
+.answer-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.q-answer-body {
+  padding: 12px 14px;
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+
+.q-answer-body.amharic {
+  font-family: 'Noto Sans Ethiopic', sans-serif;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.q-answer-body strong { color: var(--text); }
+
+/* Not subscribed — paywall prompt */
+.answer-locked {
+  padding: 16px 14px;
+  text-align: center;
+}
+
+.lock-blur {
+  font-size: 13px;
+  color: transparent;
+  text-shadow: 0 0 8px rgba(136,146,168,0.8);
+  user-select: none;
+  margin-bottom: 12px;
+  line-height: 1.5;
+  filter: blur(4px);
+}
+
+.unlock-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+}
+
+.unlock-btn:active { transform: scale(0.97); }
+
+/* Q FOOTER */
+.q-footer {
+  padding: 10px 16px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.q-source { font-size: 11px; color: var(--text3); }
+
+.q-actions { display: flex; gap: 8px; }
+
+.q-action {
+  display: flex; align-items: center; gap: 5px;
+  padding: 5px 10px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text2);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.q-action:active { background: var(--bg4); color: var(--text); }
+
+/* ══ SUBMIT FLOW ══ */
+#submit-screen {
+  background: var(--bg);
+}
+
+.submit-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+}
+
+.back-btn {
+  width: 36px; height: 36px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; cursor: pointer;
+  transition: all 0.15s; flex-shrink: 0;
+}
+
+.back-btn:active { background: var(--bg4); transform: scale(0.92); }
+
+.submit-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+/* STEP INDICATOR */
+.step-bar {
+  padding: 16px 20px 0;
+  display: flex;
+  gap: 6px;
+}
+
+.step-dot {
+  flex: 1;
+  height: 3px;
+  background: var(--border2);
+  border-radius: 2px;
+  transition: background 0.3s;
+}
+
+.step-dot.done { background: var(--accent); }
+.step-dot.active { background: var(--accent2); }
+
+.submit-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+
+.form-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text2);
+}
+
+.form-label .amharic-sub {
+  font-family: 'Noto Sans Ethiopic', sans-serif;
+  font-size: 11px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text3);
+  margin-left: 6px;
+}
+
+.option-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.option-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+
+.select-chip {
+  padding: 12px 10px;
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text2);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.3;
+}
+
+.select-chip .chip-icon { font-size: 20px; display: block; margin-bottom: 4px; }
+
+.select-chip.active {
+  background: rgba(59,130,246,0.1);
+  border-color: var(--accent);
+  color: var(--accent2);
+}
+
+.select-chip:active { transform: scale(0.97); }
+
+.form-textarea {
+  width: 100%;
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  padding: 14px;
+  resize: none;
+  min-height: 110px;
+  outline: none;
+  transition: border-color 0.2s;
+  line-height: 1.5;
+}
+
+.form-textarea.amharic-input {
+  font-family: 'Noto Sans Ethiopic', sans-serif;
+  font-size: 13px;
+}
+
+.form-textarea:focus { border-color: var(--accent); }
+.form-textarea::placeholder { color: var(--text3); }
+
+.char-count { font-size: 11px; color: var(--text3); text-align: right; }
+
+.submit-footer {
+  padding: 16px 20px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 10px;
+}
+
+.btn-next {
+  flex: 1;
+  padding: 15px;
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  border: none;
+  border-radius: var(--radius);
+  color: white;
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 20px rgba(59,130,246,0.25);
+}
+
+.btn-next:active { transform: scale(0.98); }
+.btn-next:disabled { opacity: 0.35; cursor: default; transform: none; box-shadow: none; }
+
+.btn-back-step {
+  padding: 15px 18px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  color: var(--text2);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* SUCCESS */
+.success-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  text-align: center;
+  gap: 16px;
+}
+
+.success-icon {
+  width: 80px; height: 80px;
+  background: rgba(34,197,94,0.12);
+  border: 1px solid rgba(34,197,94,0.3);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px;
+  animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+@keyframes popIn {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.success-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.success-sub {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.6;
+  max-width: 280px;
+}
+
+.success-amharic {
+  font-family: 'Noto Sans Ethiopic', sans-serif;
+  font-size: 13px;
+  color: var(--text3);
+}
+
+/* EMPTY STATE */
+.empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--text3);
+}
+
+.empty-icon { font-size: 48px; margin-bottom: 16px; }
+.empty-text { font-size: 14px; line-height: 1.6; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* LOADING SHIMMER */
+.shimmer {
+  background: linear-gradient(90deg, var(--bg2) 0%, var(--bg3) 50%, var(--bg2) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+/* STEP PANELS */
+.step-panel { display: none; }
+.step-panel.active { display: flex; flex-direction: column; gap: 18px; }
+
+/* Sticky filter */
+.filters-sticky {
+  position: sticky;
+  top: 54px;
+  z-index: 90;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+}
+
+/* ══ SIDEBAR MENU ══ */
+.menu-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s;
+}
+.menu-overlay.open { opacity: 1; pointer-events: all; }
+
+.sidebar {
+  position: fixed; top: 0; right: -300px; bottom: 0;
+  width: 280px; z-index: 201;
+  background: var(--bg2);
+  border-left: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  transition: right 0.28s cubic-bezier(0.22,1,0.36,1);
+  overflow-y: auto;
+}
+.sidebar.open { right: 0; }
+
+.sidebar-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.sidebar-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px; font-weight: 800;
+  background: linear-gradient(135deg, var(--text), var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.sidebar-close {
+  width: 30px; height: 30px;
+  background: var(--bg3); border: 1px solid var(--border2);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  font-size: 14px; cursor: pointer; transition: all 0.15s;
+}
+.sidebar-close:active { background: var(--bg4); }
+
+/* Profile block */
+.profile-block {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 12px;
+}
+
+.profile-avatar {
+  width: 56px; height: 56px;
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+}
+
+.profile-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px; font-weight: 700; color: var(--text);
+}
+.profile-handle { font-size: 12px; color: var(--text2); margin-top: 2px; }
+
+/* Subscription card */
+.sub-card {
+  margin: 16px 20px 0;
+  background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(99,102,241,0.07));
+  border: 1px solid rgba(59,130,246,0.3);
+  border-radius: 12px; padding: 14px;
+  position: relative; overflow: hidden;
+}
+.sub-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(59,130,246,0.5), transparent);
+}
+.sub-status-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.sub-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px rgba(34,197,94,0.6); }
+.sub-status-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--green); }
+.sub-info { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.sub-renew { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+/* Menu items */
+.menu-section { padding: 16px 12px 8px; }
+.menu-section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text3); padding: 0 8px; margin-bottom: 8px; }
+
+.menu-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 10px; border-radius: 10px;
+  cursor: pointer; transition: all 0.15s;
+  color: var(--text2); font-size: 14px; font-weight: 500;
+}
+.menu-item:active { background: var(--bg3); color: var(--text); }
+.menu-item.danger { color: var(--red); }
+.menu-item.danger:active { background: rgba(239,68,68,0.08); }
+
+.menu-icon {
+  width: 34px; height: 34px; border-radius: 9px;
+  background: var(--bg3); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.menu-item.danger .menu-icon { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.2); }
+
+.menu-item-text { flex: 1; }
+.menu-item-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
+.menu-arrow { font-size: 12px; color: var(--text3); }
+
+/* Hamburger btn */
+.hamburger-btn {
+  width: 34px; height: 34px;
+  background: var(--bg3); border: 1px solid var(--border2);
+  border-radius: 10px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 4px;
+  cursor: pointer; transition: all 0.15s;
+}
+.hamburger-btn:active { background: var(--bg4); transform: scale(0.92); }
+.hamburger-line { width: 14px; height: 1.5px; background: var(--text2); border-radius: 1px; transition: all 0.2s; }
+
+/* Add Answer button */
+.add-answer-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, var(--accent), #6366F1);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+  box-shadow: 0 2px 12px rgba(59,130,246,0.25);
+}
+.add-answer-btn:active { transform: scale(0.98); opacity: 0.9; }
+.add-answer-btn:disabled { opacity: 0.35; cursor: default; transform: none; box-shadow: none; }
+
+/* Submitted answer */
+.submitted-answer {
+  background: rgba(34,197,94,0.06);
+  border: 1px solid rgba(34,197,94,0.2);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.5;
+  margin-top: 8px;
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.submitted-answer .tick { color: var(--green); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ PAYWALL SCREEN ══════════════════════════════ -->
+<div class="screen active" id="paywall">
+  <div class="paywall-bg"></div>
+
+  <div class="paywall-logo">📚</div>
+
+  <h1 class="paywall-title">ፈተና Hub<br>Exam Q&A</h1>
+  <p class="paywall-amharic">የኢትዮጵያ ሀገራዊ ፈተና ጥያቄዎች እና መልሶች</p>
+
+  <div class="features-list">
+    <div class="feature-row">
+      <div class="feature-icon">🔓</div>
+      <div class="feature-text">
+        <strong>View Full Answers</strong>
+        Unlock detailed answers & explanations for all exam questions — ሙሉ መልሶችን ይመልከቱ
+      </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-icon">📤</div>
+      <div class="feature-text">
+        <strong>Submit Questions</strong>
+        Post your own questions to the community channel — ጥያቄዎችን ይላኩ
+      </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-icon">🔍</div>
+      <div class="feature-text">
+        <strong>Filter by Grade, Subject & Type</strong>
+        Find exactly what you need fast — ርዕሰ ጉዳይ፣ ክፍል፣ ዓይነት
+      </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-icon">🌐</div>
+      <div class="feature-text">
+        <strong>Bilingual — English & Amharic</strong>
+        Full support in both languages — አማርኛ እና እንግሊዝኛ
+      </div>
+    </div>
+  </div>
+
+  <div class="price-card">
+    <div class="price-top">
+      <div style="font-size:13px;color:var(--text2)">Monthly Access</div>
+      <div class="price-badge">Best Value</div>
+    </div>
+    <div class="price-amount">15 <span>ETB / month</span></div>
+    <div class="price-desc">Less than a pen. More than a textbook. · ከብዕር ይረክሳል</div>
+  </div>
+
+  <button class="btn-pay" onclick="handleSubscribe()">
+    💛 Subscribe via Telebirr — 15 ETB
+  </button>
+  <p class="pay-note">Cancel anytime · Secure · ደህንነቱ የተጠበቀ ክፍያ</p>
+</div>
+
+<!-- ══════════════════════════════ MAIN APP SCREEN ══════════════════════════════ -->
+<div class="screen" id="app">
+
+  <!-- TOP NAV -->
+  <div class="top-nav">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <div class="nav-logo-icon">📚</div>
+        <div class="nav-logo-text">ፈተና Hub</div>
+      </div>
+      <div class="nav-right">
+        <div class="nav-badge">✓ MEMBER</div>
+        <div class="nav-submit-btn" onclick="openSubmit()" title="Submit Question">✏️</div>
+        <div class="hamburger-btn" onclick="openMenu()">
+          <div class="hamburger-line"></div>
+          <div class="hamburger-line"></div>
+          <div class="hamburger-line"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR OVERLAY -->
+  <div class="menu-overlay" id="menu-overlay" onclick="closeMenu()"></div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">ፈተና Hub</div>
+      <div class="sidebar-close" onclick="closeMenu()">✕</div>
+    </div>
+
+    <!-- Profile -->
+    <div class="profile-block">
+      <div class="profile-avatar" id="sidebar-avatar">👤</div>
+      <div>
+        <div class="profile-name" id="sidebar-name">Student</div>
+        <div class="profile-handle" id="sidebar-handle">@username · Telegram</div>
+      </div>
+    </div>
+
+    <!-- Subscription status -->
+    <div class="sub-card" id="sub-card">
+      <div class="sub-status-row">
+        <div class="sub-dot"></div>
+        <div class="sub-status-label">Active Subscription</div>
+      </div>
+      <div class="sub-info">15 ETB / month · Full Access</div>
+      <div class="sub-renew" id="sub-renew">Renews: next month</div>
+    </div>
+
+    <!-- Account section -->
+    <div class="menu-section">
+      <div class="menu-section-label">Account</div>
+      <div class="menu-item" onclick="closeMenu()">
+        <div class="menu-icon">👤</div>
+        <div class="menu-item-text">
+          <div>My Profile</div>
+          <div class="menu-item-sub">View your submitted questions</div>
+        </div>
+        <div class="menu-arrow">›</div>
+      </div>
+      <div class="menu-item" onclick="closeMenu()">
+        <div class="menu-icon">📊</div>
+        <div class="menu-item-text">
+          <div>My Activity</div>
+          <div class="menu-item-sub">Questions liked & answered</div>
+        </div>
+        <div class="menu-arrow">›</div>
+      </div>
+      <div class="menu-item" onclick="closeMenu()">
+        <div class="menu-icon">💳</div>
+        <div class="menu-item-text">
+          <div>Subscription</div>
+          <div class="menu-item-sub" id="sub-menu-status">Active · 15 ETB/mo</div>
+        </div>
+        <div class="menu-arrow">›</div>
+      </div>
+    </div>
+
+    <!-- Settings section -->
+    <div class="menu-section">
+      <div class="menu-section-label">Settings</div>
+      <div class="menu-item" onclick="toggleLangMenu()">
+        <div class="menu-icon">🌐</div>
+        <div class="menu-item-text">
+          <div>Language</div>
+          <div class="menu-item-sub" id="lang-menu-status">English</div>
+        </div>
+        <div class="menu-arrow">›</div>
+      </div>
+      <div class="menu-item" onclick="closeMenu()">
+        <div class="menu-icon">🔔</div>
+        <div class="menu-item-text">
+          <div>Notifications</div>
+          <div class="menu-item-sub">New answers & approvals</div>
+        </div>
+        <div class="menu-arrow">›</div>
+      </div>
+    </div>
+
+    <!-- Danger section -->
+    <div class="menu-section" style="margin-top:auto">
+      <div class="menu-item danger" onclick="handleLogout()">
+        <div class="menu-icon">🚪</div>
+        <div class="menu-item-text">
+          <div>Log Out</div>
+          <div class="menu-item-sub" style="color:var(--text3)">You'll need to re-subscribe</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:24px"></div>
+  </div>
+
+  <!-- LANGUAGE TOGGLE -->
+  <div class="filters-sticky">
+    <div class="lang-bar">
+      <button class="lang-btn active" onclick="setLang('en', this)">English</button>
+      <button class="lang-btn" onclick="setLang('am', this)">አማርኛ</button>
+      <button class="lang-btn" onclick="setLang('both', this)">Both · ሁለቱም</button>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters-section">
+      <!-- Type filter -->
+      <div class="filter-row">
+        <span class="filter-label">Type</span>
+        <div class="filter-chip active" onclick="setFilter('type','all',this)">All</div>
+        <div class="filter-chip" onclick="setFilter('type','exam',this)">📝 Exam</div>
+        <div class="filter-chip" onclick="setFilter('type','life',this)">💬 Life Q</div>
+        <div class="filter-chip" onclick="setFilter('type','homework',this)">📐 Homework</div>
+        <div class="filter-chip" onclick="setFilter('type','tips',this)">💡 Study Tips</div>
+      </div>
+      <!-- Grade filter -->
+      <div class="filter-row">
+        <span class="filter-label">Grade</span>
+        <div class="filter-chip active" onclick="setFilter('grade','all',this)">All</div>
+        <div class="filter-chip" onclick="setFilter('grade','9',this)">Grade 9</div>
+        <div class="filter-chip" onclick="setFilter('grade','10',this)">Grade 10</div>
+        <div class="filter-chip" onclick="setFilter('grade','11',this)">Grade 11</div>
+        <div class="filter-chip" onclick="setFilter('grade','12',this)">Grade 12</div>
+        <div class="filter-chip" onclick="setFilter('grade','matric',this)">Matric</div>
+      </div>
+      <!-- Subject filter -->
+      <div class="filter-row">
+        <span class="filter-label">Subject</span>
+        <div class="filter-chip active" onclick="setFilter('subject','all',this)">All</div>
+        <div class="filter-chip" onclick="setFilter('subject','math',this)">📐 Math</div>
+        <div class="filter-chip" onclick="setFilter('subject','physics',this)">⚡ Physics</div>
+        <div class="filter-chip" onclick="setFilter('subject','biology',this)">🧬 Biology</div>
+        <div class="filter-chip" onclick="setFilter('subject','chemistry',this)">🧪 Chem</div>
+        <div class="filter-chip" onclick="setFilter('subject','english',this)">📖 English</div>
+        <div class="filter-chip" onclick="setFilter('subject','history',this)">🏛 History</div>
+        <div class="filter-chip" onclick="setFilter('subject','civics',this)">🗳 Civics</div>
+        <div class="filter-chip" onclick="setFilter('subject','economics',this)">📊 Econ</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEED -->
+  <div class="feed" id="feed"></div>
+</div>
+
+<!-- ══════════════════════════════ SUBMIT SCREEN ══════════════════════════════ -->
+<div class="screen" id="submit-screen">
+  <div class="submit-header">
+    <div class="back-btn" onclick="closeSubmit()">←</div>
+    <div class="submit-title">Submit Question</div>
+  </div>
+
+  <div class="step-bar" id="step-bar">
+    <div class="step-dot active" id="step-1"></div>
+    <div class="step-dot" id="step-2"></div>
+    <div class="step-dot" id="step-3"></div>
+    <div class="step-dot" id="step-4"></div>
+  </div>
+
+  <div class="submit-body" id="submit-body">
+
+    <!-- STEP 1: Type -->
+    <div class="step-panel active" id="panel-1">
+      <div class="form-group">
+        <div class="form-label">What type of question? <span class="amharic-sub">· ምን አይነት ጥያቄ?</span></div>
+        <div class="option-grid">
+          <div class="select-chip" onclick="selectChip('type','exam',this)">
+            <span class="chip-icon">📝</span>Exam Question<br><small style="color:var(--text3);font-size:10px">ፈተና ጥያቄ</small>
+          </div>
+          <div class="select-chip" onclick="selectChip('type','homework',this)">
+            <span class="chip-icon">📐</span>Homework<br><small style="color:var(--text3);font-size:10px">የቤት ሥራ</small>
+          </div>
+          <div class="select-chip" onclick="selectChip('type','life',this)">
+            <span class="chip-icon">💬</span>Life Question<br><small style="color:var(--text3);font-size:10px">የሕይወት ጥያቄ</small>
+          </div>
+          <div class="select-chip" onclick="selectChip('type','tips',this)">
+            <span class="chip-icon">💡</span>Study Tips<br><small style="color:var(--text3);font-size:10px">የጥናት ምክር</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Grade & Subject -->
+    <div class="step-panel" id="panel-2">
+      <div class="form-group">
+        <div class="form-label">Grade Level <span class="amharic-sub">· ክፍል</span></div>
+        <div class="option-grid three">
+          <div class="select-chip" onclick="selectChip('grade','9',this)"><span class="chip-icon">9️⃣</span>Grade 9</div>
+          <div class="select-chip" onclick="selectChip('grade','10',this)"><span class="chip-icon">🔟</span>Grade 10</div>
+          <div class="select-chip" onclick="selectChip('grade','11',this)"><span class="chip-icon">1️⃣</span>Grade 11</div>
+          <div class="select-chip" onclick="selectChip('grade','12',this)"><span class="chip-icon">🎓</span>Grade 12</div>
+          <div class="select-chip" onclick="selectChip('grade','matric',this)"><span class="chip-icon">📋</span>Matric</div>
+          <div class="select-chip" onclick="selectChip('grade','general',this)"><span class="chip-icon">🌐</span>General</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">Subject <span class="amharic-sub">· ትምህርት</span></div>
+        <div class="option-grid">
+          <div class="select-chip" onclick="selectChip('subject','math',this)"><span class="chip-icon">📐</span>Mathematics</div>
+          <div class="select-chip" onclick="selectChip('subject','physics',this)"><span class="chip-icon">⚡</span>Physics</div>
+          <div class="select-chip" onclick="selectChip('subject','biology',this)"><span class="chip-icon">🧬</span>Biology</div>
+          <div class="select-chip" onclick="selectChip('subject','chemistry',this)"><span class="chip-icon">🧪</span>Chemistry</div>
+          <div class="select-chip" onclick="selectChip('subject','english',this)"><span class="chip-icon">📖</span>English</div>
+          <div class="select-chip" onclick="selectChip('subject','history',this)"><span class="chip-icon">🏛</span>History</div>
+          <div class="select-chip" onclick="selectChip('subject','civics',this)"><span class="chip-icon">🗳</span>Civics</div>
+          <div class="select-chip" onclick="selectChip('subject','economics',this)"><span class="chip-icon">📊</span>Economics</div>
+          <div class="select-chip" onclick="selectChip('subject','other',this)"><span class="chip-icon">📚</span>Other</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: The Question -->
+    <div class="step-panel" id="panel-3">
+      <div class="form-group">
+        <div class="form-label">Write your question <span class="amharic-sub">· ጥያቄዎን ይጻፉ</span></div>
+        <textarea class="form-textarea" id="q-text-en" placeholder="Type your question in English..." oninput="updateChar('q-text-en','char-en',500)" maxlength="500"></textarea>
+        <div class="char-count" id="char-en">0 / 500</div>
+      </div>
+      <div class="form-group">
+        <div class="form-label" style="font-family:'Noto Sans Ethiopic',sans-serif;font-size:12px;letter-spacing:0">ጥያቄዎን በአማርኛ ይጻፉ <span style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--text3)">(optional)</span></div>
+        <textarea class="form-textarea amharic-input" id="q-text-am" placeholder="ጥያቄዎን እዚህ ይጻፉ..." oninput="updateChar('q-text-am','char-am',500)" maxlength="500"></textarea>
+        <div class="char-count" id="char-am">0 / 500</div>
+      </div>
+    </div>
+
+    <!-- STEP 4: Source -->
+    <div class="step-panel" id="panel-4">
+      <div class="form-group">
+        <div class="form-label">Question Source <span class="amharic-sub">· ምንጭ</span></div>
+        <div class="option-grid">
+          <div class="select-chip" onclick="selectChip('source','moe',this)"><span class="chip-icon">🏛</span>MoE Exam</div>
+          <div class="select-chip" onclick="selectChip('source','textbook',this)"><span class="chip-icon">📗</span>Textbook</div>
+          <div class="select-chip" onclick="selectChip('source','teacher',this)"><span class="chip-icon">👩‍🏫</span>Teacher</div>
+          <div class="select-chip" onclick="selectChip('source','self',this)"><span class="chip-icon">✍️</span>My Own</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">Year (if exam) <span class="amharic-sub">· ዓ.ም</span></div>
+        <div class="option-grid three">
+          <div class="select-chip" onclick="selectChip('year','2024',this)">2024</div>
+          <div class="select-chip" onclick="selectChip('year','2023',this)">2023</div>
+          <div class="select-chip" onclick="selectChip('year','2022',this)">2022</div>
+          <div class="select-chip" onclick="selectChip('year','2021',this)">2021</div>
+          <div class="select-chip" onclick="selectChip('year','2020',this)">2020</div>
+          <div class="select-chip" onclick="selectChip('year','other',this)">Other</div>
+        </div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px;font-size:12px;color:var(--text2);line-height:1.6">
+        ℹ️ Your question will be reviewed by the admin before being posted to the channel. You'll be notified once it's approved.<br>
+        <span style="font-family:'Noto Sans Ethiopic',sans-serif;font-size:11px;color:var(--text3)">ጥያቄዎ ወደ ቻናሉ ከመለጠፉ በፊት በአስተዳዳሪ ይገመገማል።</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="submit-footer" id="submit-footer">
+    <button class="btn-back-step" id="step-back-btn" onclick="prevStep()" style="display:none">←</button>
+    <button class="btn-next" id="step-next-btn" onclick="nextStep()" disabled>Continue →</button>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="submit-success" style="display:none">
+    <div class="success-icon">✅</div>
+    <div class="success-title">Submitted!</div>
+    <div class="success-sub">Your question is pending admin approval. We'll post it to the channel soon.</div>
+    <div class="success-amharic">ጥያቄዎ ለአስተዳዳሪ ተልኳል። ከፀደቀ ወደ ቻናሉ ይለጠፋል።</div>
+    <button class="btn-next" style="width:100%;margin-top:16px" onclick="closeSubmit()">Back to Feed ←</button>
+  </div>
+
+</div>
+
+<script>
+// ══ TELEGRAM INIT ══
+if (window.Telegram?.WebApp) {
+  Telegram.WebApp.ready();
+  Telegram.WebApp.expand();
+}
+
+// ══ STATE ══
+const state = {
+  subscribed: localStorage.getItem('subscribed') === 'true',
+  lang: 'en',
+  filters: { type: 'all', grade: 'all', subject: 'all' },
+  submitStep: 1,
+  submitData: {},
+  likes: JSON.parse(localStorage.getItem('likes') || '{}'),
+};
+
+// ══ DEMO QUESTIONS DATA ══
+// In production, fetch these from your backend/Telegram channel
+const QUESTIONS = [
+  {
+    id: 1, type: 'exam', grade: '12', subject: 'math',
+    source: 'MoE 2023',
+    opts: ['A. 11', 'B. 13', 'C. 15', 'D. 9'], ans: 1,
+    en: { q: 'If f(x) = 2x³ - 3x² + x - 5, find f\'(x) and evaluate f\'(2).', a: 'f\'(x) = 6x² - 6x + 1. At x=2: f\'(2) = 6(4) - 6(2) + 1 = 24 - 12 + 1 = <strong>13</strong>. Differentiate term by term using the power rule.' },
+    am: { q: 'f(x) = 2x³ - 3x² + x - 5 ከሆነ፣ f\'(x)ን ፈልጉ እና f\'(2)ን ያሰሉ።', a: 'f\'(x) = 6x² - 6x + 1። x=2 ሲሆን: f\'(2) = 24 - 12 + 1 = <strong>13</strong>።' },
+    time: '2h ago', likes: 34,
+  },
+  {
+    id: 2, type: 'exam', grade: '12', subject: 'physics',
+    source: 'MoE 2022',
+    opts: ['A. 2 m/s²', 'B. 4 m/s²', 'C. 5 m/s²', 'D. 10 m/s²'], ans: 2,
+    en: { q: 'A 5 kg object is placed on a frictionless inclined plane at 30°. What is the acceleration of the object? (g = 10 m/s²)', a: 'On a frictionless incline: a = g·sin(θ) = 10 × sin(30°) = 10 × 0.5 = <strong>5 m/s²</strong> down the slope. Mass does not affect acceleration on a frictionless surface.' },
+    am: { q: '5 ኪ.ግ የሆነ አካል 30° ዝንባሌ ባለው አሂዱ ወለል ላይ ተቀምጧል። የአካሉ ፍጥነት ማፋጠን ምን ያህል ነው?', a: 'a = g·sin(30°) = 10 × 0.5 = <strong>5 m/s²</strong> ወደ ዝንባሌው ታች።' },
+    time: '4h ago', likes: 28,
+  },
+  {
+    id: 3, type: 'life', grade: 'general', subject: 'other',
+    source: 'Community',
+    en: { q: 'How do I stay motivated during exam preparation when I feel like giving up?', a: '<strong>Break your study into 25-minute blocks (Pomodoro technique).</strong> Set one small daily goal. Remove your phone from the room. Remember: exam season is temporary but your future is long. Start with your easiest subject to build momentum. Sleep 7–8 hours — your brain consolidates memory during sleep.' },
+    am: { q: 'ፈተናን ስዘጋጅ ተስፋ ሲቆርጠኝ እንዴት ነው ተነሳሽነቴን የምጠብቀው?', a: '<strong>ትምህርቱን ወደ 25 ደቂቃ ቦሎኮች ይከፋፍሉ።</strong> ስልክዎን ያርቁ። ፈተናው ጊዜያዊ ነው ነገር ግን ወደፊትዎ ዘላቂ ነው። ከቀላሉ ትምህርት ጀምሩ። 7-8 ሰዓት ይተኙ።' },
+    time: '6h ago', likes: 67,
+  },
+  {
+    id: 4, type: 'exam', grade: '10', subject: 'biology',
+    source: 'MoE 2023',
+    en: { q: 'Describe the process of mitosis and explain why it is important for growth and repair of tissues.', a: '<strong>Mitosis</strong> is cell division producing 2 identical daughter cells. Stages: Prophase (chromatin condenses), Metaphase (chromosomes align at equator), Anaphase (chromatids separate), Telophase (nuclear envelopes reform). Cytokinesis follows. Importance: growth, tissue repair, replacement of old cells — all without changing chromosome number.' },
+    am: { q: 'ሚቶሲስን ሂደት ግለጹ እና ለሕብረ ሕዋሳት ዕድገትና ጥገና ለምን አስፈላጊ እንደሆነ አብራሩ።', a: '<strong>ሚቶሲስ</strong> 2 ተመሳሳይ ሴሎችን የሚያስከትል የሴል ክፍፍል ነው። ደረጃዎቹ፡ Prophase፣ Metaphase፣ Anaphase፣ Telophase። ለዕድገት እና ለሕብረ ሕዋሳት ጥገና አስፈላጊ ነው።' },
+    time: '1d ago', likes: 45,
+  },
+  {
+    id: 5, type: 'exam', grade: '12', subject: 'english',
+    source: 'MoE 2022',
+    opts: ['A. were → was', 'B. nor → or', 'C. Neither → Either', 'D. No error'], ans: 0,
+    en: { q: 'Identify the grammatical error: "Neither the students nor the teacher were present at the meeting."', a: 'The error is subject-verb agreement. With "neither...nor", the verb agrees with the <em>closer</em> subject ("the teacher" — singular). Corrected: <strong>"...the teacher <u>was</u> present."</strong>' },
+    am: { q: 'ትምህርታዊ ስህተቱን ለዩ: "Neither the students nor the teacher were present"', a: 'ስህተቱ የግሥ ስምምነት ነው። "Neither...nor" ከቀረበ የቅርብ ርዕሰ ጉዳዩ ይወስናል። ትክክለኛ፡ <strong>"...teacher <u>was</u> present"</strong>' },
+    time: '1d ago', likes: 31,
+  },
+  {
+    id: 6, type: 'tips', grade: 'general', subject: 'other',
+    source: 'Community',
+    en: { q: 'What is the most effective way to memorize long definitions for exams?', a: '<strong>Use the ACRE method:</strong> (1) Associate — link the word to something visual or funny. (2) Create — make a sentence using the definition in your own words. (3) Repeat — write it 3 times without looking. (4) Explain — teach it out loud. Mnemonics and diagrams work better than re-reading.' },
+    am: { q: 'ለፈተና ረጅም ፍቺዎችን ለማስታወስ በጣም ውጤታማው መንገድ ምንድን ነው?', a: '<strong>ACRE ዘዴን ተጠቀሙ:</strong> (1) ያዛምዱ (2) የራስዎ ቃላት ይጠቀሙ (3) 3 ጊዜ ያለ እይታ ይጻፉ (4) ለሌላ ሰው ያስረዱ።' },
+    time: '2d ago', likes: 89,
+  },
+  {
+    id: 7, type: 'exam', grade: '12', subject: 'chemistry',
+    source: 'MoE 2021',
+    opts: ['A. 2Fe + O₂ → Fe₂O₃', 'B. 4Fe + 3O₂ → 2Fe₂O₃', 'C. Fe + O₂ → FeO₂', 'D. 3Fe + 2O₂ → Fe₃O₄'], ans: 1,
+    en: { q: 'Balance the following equation and identify the reaction type: Fe + O₂ → Fe₂O₃', a: 'Balanced: <strong>4Fe + 3O₂ → 2Fe₂O₃</strong>. This is a <strong>synthesis (combination) reaction</strong> — reactants combine into a single product. Iron is oxidized (loses electrons).' },
+    am: { q: 'ሚዛን አሳዩ እና የምላሽ ዓይነቱን ለዩ: Fe + O₂ → Fe₂O₃', a: 'ሚዛናዊ: <strong>4Fe + 3O₂ → 2Fe₂O₃</strong>። ይህ <strong>synthesis reaction</strong> ነው።' },
+    time: '2d ago', likes: 22,
+  },
+  {
+    id: 8, type: 'exam', grade: '12', subject: 'history',
+    source: 'MoE 2023',
+    en: { q: 'Explain the significance of the Battle of Adwa (1896) in the context of African history and anti-colonialism.', a: 'The Battle of Adwa on <strong>March 1, 1896</strong> was a decisive Ethiopian victory over Italy under Emperor Menelik II. Significance: (1) Ethiopia remained the only African nation to defeat a European colonial power. (2) Inspired Pan-African movements. (3) Italy recognized Ethiopian sovereignty via the Treaty of Addis Ababa. (4) Global symbol of African resistance and dignity.' },
+    am: { q: 'የአድዋ ጦርነት (1896) በአፍሪካ ታሪክ እና ፀረ-ቅኝ ግዛት ትግል ውስጥ ያለውን ጠቀሜታ ያብራሩ።', a: '<strong>መጋቢት 1893 ዓ.ም</strong> ንጉሠ ነገሥት ምኒልክ II ጣልያንን አሸነፈ። ኢትዮጵያ ቅኝ ግዛትን የተቋቋመች ብቸኛ አፍሪካዊ ሀገር ሆነች። የፓን-አፍሪካ እንቅስቃሴ አነሳሽ ሆነ።' },
+    time: '3d ago', likes: 55,
+  },
+];
+
+// ══ SUBSCRIBE ══
+function handleSubscribe() {
+  const msg = `💛 TELEBIRR PAYMENT\n\nAmount: 15 ETB / month\nSend to: +251 9XX XXX XXX\nReference: FETENA-${Date.now().toString().slice(-6)}\n\nAfter payment, screenshot ➡ @YourAdminUsername\nYou'll be activated within minutes.\n\nፍጥነት ቁጥር: FETENA-${Date.now().toString().slice(-6)}`;
+  if (window.Telegram?.WebApp) {
+    Telegram.WebApp.showAlert(msg, () => {
+      // In production: verify payment server-side, then set subscribed
+      activateSubscription();
+    });
+  } else {
+    alert(msg);
+    activateSubscription();
+  }
+}
+
+function activateSubscription() {
+  state.subscribed = true;
+  localStorage.setItem('subscribed', 'true');
+  localStorage.setItem('subDate', new Date().toLocaleDateString());
+  showScreen('app');
+  renderFeed();
+}
+
+// ══ FILTERS ══
+function setFilter(key, val, el) {
+  state.filters[key] = val;
+  el.closest('.filter-row').querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderFeed();
+}
+
+function setLang(lang, el) {
+  state.lang = lang;
+  el.closest('.lang-bar').querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderFeed();
+}
+
+// ══ FEED ══
+function renderFeed() {
+  const feed = document.getElementById('feed');
+  let filtered = QUESTIONS.filter(q => {
+    const { type, grade, subject } = state.filters;
+    if (type !== 'all' && q.type !== type) return false;
+    if (grade !== 'all' && q.grade !== grade) return false;
+    if (subject !== 'all' && q.subject !== subject) return false;
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    feed.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">🔍</div>
+        <div class="empty-text">No questions match your filters.<br>Try a different combination.</div>
+      </div>`;
+    return;
+  }
+
+  feed.innerHTML = filtered.map(q => buildCard(q)).join('');
+}
+
+function buildCard(q) {
+  const showBoth = state.lang === 'both';
+  const showAm   = state.lang === 'am';
+
+  const qText = showBoth
+    ? `<p class="q-question">${q.en.q}</p><p class="q-question amharic" style="margin-top:6px;color:var(--text2)">${q.am.q}</p>`
+    : showAm
+    ? `<p class="q-question amharic">${q.am.q}</p>`
+    : `<p class="q-question">${q.en.q}</p>`;
+
+  const typeTag  = {exam:'tag-exam',life:'tag-life',homework:'tag-math',tips:'tag-science'}[q.type] || 'tag-grade';
+  const typeLabel= {exam:'📝 Exam',life:'💬 Life Q',homework:'📐 Homework',tips:'💡 Study Tip'}[q.type] || q.type;
+  const subjTag  = {math:'tag-math',physics:'tag-physics',biology:'tag-biology',chemistry:'tag-chemistry',english:'tag-english',history:'tag-history',civics:'tag-history',economics:'tag-science'}[q.subject] || 'tag-grade';
+
+  const liked     = state.likes[q.id];
+  const likeCount = q.likes + (liked ? 1 : 0);
+
+  // ── NOT SUBSCRIBED: show paywall prompt ──
+  if (!state.subscribed) {
+    return `
+    <div class="q-card" id="card-${q.id}">
+      <div class="q-card-header">
+        <div class="q-tags">
+          <span class="q-tag ${typeTag}">${typeLabel}</span>
+          <span class="q-tag tag-grade">Grade ${q.grade}</span>
+          <span class="q-tag ${subjTag}">${q.subject.charAt(0).toUpperCase()+q.subject.slice(1)}</span>
+        </div>
+        <span class="q-time">${q.time}</span>
+      </div>
+      <div class="q-body">
+        ${qText}
+        <div class="q-answer-wrap">
+          <div class="answer-locked">
+            <div class="lock-blur">The answer is hidden. Subscribe to view full answers, attempt questions, and track your progress across all subjects.</div>
+            <button class="unlock-btn" onclick="showPaywall()">🔒 Subscribe — 15 ETB/mo</button>
+          </div>
+        </div>
+      </div>
+      <div class="q-footer">
+        <span class="q-source">📌 ${q.source}</span>
+        <div class="q-actions">
+          <div class="q-action">❤️ ${likeCount}</div>
+        <div class="q-action" onclick="reportQ(${q.id})" style="color:var(--text3)">🚩 Report</div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  // ── SUBSCRIBED: work-first then reveal ──
+  // Multiple choice questions have opts array; otherwise open-ended
+  const isMC = Array.isArray(q.opts) && q.opts.length > 0;
+
+  let workSection = '';
+  if (isMC) {
+    const letters = ['A','B','C','D','E'];
+    const opts = q.opts.map((opt, i) => `
+      <button class="mc-opt" id="mc-${q.id}-${i}" onclick="selectMC(${q.id},${i},${q.ans})">
+        <span class="mc-opt-letter">${letters[i]}</span>
+        <span>${opt.replace(/^[A-D]\.\s*/,'')}</span>
+      </button>`).join('');
+    workSection = `
+      <div class="mc-options" id="mc-opts-${q.id}">${opts}</div>
+      <button class="show-answer-btn" id="show-btn-${q.id}" onclick="revealAnswer(${q.id})" style="display:none">
+        👁 Show Full Answer · መልሱን አሳይ
+      </button>`;
+  } else {
+    const placeholder = showAm ? 'መልስዎን እዚህ ይጻፉ...' : 'Write your answer here first...';
+    workSection = `
+      <textarea class="attempt-box" id="attempt-${q.id}" placeholder="${placeholder}" oninput="onAttemptType(${q.id})"></textarea>
+      <div style="display:flex;gap:8px;margin-top:0">
+        <button class="add-answer-btn" id="add-ans-btn-${q.id}" onclick="submitAttempt(${q.id})" disabled style="flex:1">
+          ✅ Add Answer · መልስ አቅርብ
+        </button>
+      </div>
+      <div id="submitted-ans-${q.id}" style="display:none"></div>
+      <button class="show-answer-btn" id="show-btn-${q.id}" onclick="revealAnswer(${q.id})" style="margin-top:10px">
+        👁 Show Answer · መልሱን አሳይ
+      </button>`;
+  }
+
+  const ansEn = q.en.a;
+  const ansAm  = q.am.a;
+  const ansContent = showBoth
+    ? `${ansEn}<br><br><span style="font-family:'Noto Sans Ethiopic',sans-serif;color:var(--text2)">${ansAm}</span>`
+    : showAm ? ansAm : ansEn;
+
+  return `
+  <div class="q-card" id="card-${q.id}">
+    <div class="q-card-header">
+      <div class="q-tags">
+        <span class="q-tag ${typeTag}">${typeLabel}</span>
+        <span class="q-tag tag-grade">Grade ${q.grade}</span>
+        <span class="q-tag ${subjTag}">${q.subject.charAt(0).toUpperCase()+q.subject.slice(1)}</span>
+      </div>
+      <span class="q-time">${q.time}</span>
+    </div>
+    <div class="q-body">
+      ${qText}
+      <div style="margin-top:4px">
+        ${workSection}
+        <div id="answer-reveal-${q.id}" style="display:none;margin-top:10px">
+          <div class="q-answer-wrap">
+            <div class="q-answer-header">
+              <div class="answer-dot"></div>
+              <div class="answer-label">Answer · መልስ</div>
+            </div>
+            <div class="q-answer-body ${showAm ? 'amharic' : ''}">${ansContent}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="q-footer">
+      <span class="q-source">📌 ${q.source}</span>
+      <div class="q-actions">
+        <div class="q-action" onclick="toggleLike(${q.id}, this)" style="${liked ? 'color:var(--red);border-color:var(--red)' : ''}">
+          ❤️ <span id="like-${q.id}">${likeCount}</span>
+        </div>
+        <div class="q-action" onclick="shareQ(${q.id})">↗️ Share</div>
+        <div class="q-action" onclick="reportQ(${q.id})" style="color:var(--text3)">🚩 Report</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── MC SELECTION ──
+function selectMC(qId, selectedIdx, correctIdx) {
+  const letters = ['A','B','C','D','E'];
+  // Disable all options
+  letters.forEach((_, i) => {
+    const btn = document.getElementById(`mc-${qId}-${i}`);
+    if (!btn) return;
+    btn.classList.add('disabled');
+    btn.onclick = null;
+  });
+
+  const selectedBtn = document.getElementById(`mc-${qId}-${selectedIdx}`);
+  const correctBtn  = document.getElementById(`mc-${qId}-${correctIdx}`);
+
+  if (selectedIdx === correctIdx) {
+    selectedBtn.classList.add('correct');
+  } else {
+    selectedBtn.classList.add('wrong');
+    correctBtn.classList.add('correct');
+  }
+
+  // Show the "Show Full Answer" button
+  const showBtn = document.getElementById(`show-btn-${qId}`);
+  if (showBtn) {
+    showBtn.style.display = 'flex';
+    showBtn.style.marginTop = '10px';
+  }
+}
+
+// ── OPEN-ENDED: enable show answer once they type something ──
+function onAttemptType(qId) {
+  // Button is always visible for open-ended; nothing extra needed
+}
+
+// ── REVEAL ANSWER ──
+function revealAnswer(qId) {
+  const reveal  = document.getElementById(`answer-reveal-${qId}`);
+  const showBtn = document.getElementById(`show-btn-${qId}`);
+  if (!reveal) return;
+  reveal.style.display = 'block';
+  if (showBtn) showBtn.style.display = 'none';
+  reveal.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function toggleLike(id, el) {
+  const q = QUESTIONS.find(q => q.id === id);
+  const span = document.getElementById(`like-${id}`);
+  if (state.likes[id]) {
+    // Unlike
+    delete state.likes[id];
+    span.textContent = q.likes;
+    el.style.color = '';
+    el.style.borderColor = '';
+  } else {
+    // Like
+    state.likes[id] = true;
+    span.textContent = q.likes + 1;
+    el.style.color = 'var(--red)';
+    el.style.borderColor = 'var(--red)';
+  }
+  localStorage.setItem('likes', JSON.stringify(state.likes));
+}
+
+function reportQ(id) {
+  const reasons = ['Wrong answer', 'Inappropriate content', 'Spam / duplicate', 'Other'];
+  if (window.Telegram?.WebApp) {
+    Telegram.WebApp.showPopup({
+      title: '🚩 Report Question',
+      message: 'Why are you reporting this?',
+      buttons: [
+        ...reasons.map((r, i) => ({ id: String(i), type: 'default', text: r })),
+        { id: 'cancel', type: 'cancel' }
+      ]
+    }, (btnId) => {
+      if (btnId === 'cancel' || !btnId) return;
+      const reason = reasons[parseInt(btnId)];
+      Telegram.WebApp.showAlert(`✅ Reported as "${reason}". Thank you — we'll review it shortly.`);
+      // In production: send report to your bot/backend with question id + reason
+    });
+  } else {
+    const reason = prompt('Reason for report:\n1. Wrong answer\n2. Inappropriate\n3. Spam\n4. Other\n\nType reason:');
+    if (reason) alert('✅ Reported. Thank you!');
+  }
+}
+  const q = QUESTIONS.find(q => q.id === id);
+  const text = `📚 ፈተና Hub\n\n${q.en.q}\n\nView answer & more: t.me/YourBotUsername`;
+  if (window.Telegram?.WebApp) {
+    const url = `https://t.me/share/url?url=t.me/YourBotUsername&text=${encodeURIComponent(text)}`;
+    Telegram.WebApp.openTelegramLink(url);
+  } else {
+    if (navigator.share) {
+      navigator.share({ title: 'ፈተና Hub', text });
+    } else {
+      navigator.clipboard?.writeText(text);
+      alert('Link copied! Share with your classmates 📚');
+    }
+  }
+}
+
+// ── OPEN-ENDED ATTEMPT ──
+function onAttemptType(qId) {
+  const ta = document.getElementById(`attempt-${qId}`);
+  const btn = document.getElementById(`add-ans-btn-${qId}`);
+  if (btn) btn.disabled = ta.value.trim().length < 3;
+}
+
+function submitAttempt(qId) {
+  const ta = document.getElementById(`attempt-${qId}`);
+  const text = ta.value.trim();
+  if (!text) return;
+
+  // Show submitted answer
+  const submittedDiv = document.getElementById(`submitted-ans-${qId}`);
+  submittedDiv.innerHTML = `
+    <div class="submitted-answer">
+      <span class="tick">✅</span>
+      <span>${text}</span>
+    </div>`;
+  submittedDiv.style.display = 'block';
+
+  // Lock textarea & button
+  ta.disabled = true;
+  ta.style.opacity = '0.5';
+  const btn = document.getElementById(`add-ans-btn-${qId}`);
+  btn.disabled = true;
+  btn.textContent = '✅ Answer Submitted';
+  btn.style.background = 'var(--bg4)';
+  btn.style.boxShadow = 'none';
+  btn.style.color = 'var(--green)';
+  btn.style.border = '1px solid rgba(34,197,94,0.3)';
+}
+
+// ── SIDEBAR MENU ──
+function openMenu() {
+  // Populate profile from Telegram if available
+  if (window.Telegram?.WebApp?.initDataUnsafe?.user) {
+    const u = Telegram.WebApp.initDataUnsafe.user;
+    const name = [u.first_name, u.last_name].filter(Boolean).join(' ') || 'Student';
+    document.getElementById('sidebar-name').textContent = name;
+    document.getElementById('sidebar-handle').textContent = u.username ? `@${u.username}` : 'Telegram User';
+    document.getElementById('sidebar-avatar').textContent = name.charAt(0).toUpperCase();
+  }
+  // Update sub renew date
+  const joined = localStorage.getItem('subDate') || new Date().toLocaleDateString();
+  document.getElementById('sub-renew').textContent = `Member since: ${joined}`;
+  document.getElementById('sub-menu-status').textContent = state.subscribed ? 'Active · 15 ETB/mo' : 'Not subscribed';
+  // Update language display
+  const langMap = { en: 'English', am: 'አማርኛ', both: 'Both · ሁለቱም' };
+  document.getElementById('lang-menu-status').textContent = langMap[state.lang] || 'English';
+
+  document.getElementById('menu-overlay').classList.add('open');
+  document.getElementById('sidebar').classList.add('open');
+}
+
+function closeMenu() {
+  document.getElementById('menu-overlay').classList.remove('open');
+  document.getElementById('sidebar').classList.remove('open');
+}
+
+function toggleLangMenu() {
+  const langs = ['en', 'am', 'both'];
+  const next = langs[(langs.indexOf(state.lang) + 1) % langs.length];
+  state.lang = next;
+  const langMap = { en: 'English', am: 'አማርኛ', both: 'Both · ሁለቱም' };
+  document.getElementById('lang-menu-status').textContent = langMap[next];
+  renderFeed();
+}
+
+function handleLogout() {
+  if (window.Telegram?.WebApp) {
+    Telegram.WebApp.showConfirm(
+      'Log out? You will lose access and need to re-subscribe.',
+      (confirmed) => { if (confirmed) doLogout(); }
+    );
+  } else {
+    if (confirm('Log out? You will lose access and need to re-subscribe.')) doLogout();
+  }
+}
+
+function doLogout() {
+  localStorage.removeItem('subscribed');
+  localStorage.removeItem('subDate');
+  state.subscribed = false;
+  closeMenu();
+  showScreen('paywall');
+}
+
+function showPaywall() {
+  showScreen('paywall');
+}
+
+// ══ SUBMIT FLOW ══
+let currentStep = 1;
+const TOTAL_STEPS = 4;
+
+function openSubmit() {
+  currentStep = 1;
+  state.submitData = {};
+  document.querySelectorAll('.step-panel').forEach((p,i) => p.classList.toggle('active', i === 0));
+  document.querySelectorAll('.step-dot').forEach((d,i) => {
+    d.classList.toggle('active', i === 0);
+    d.classList.remove('done');
+  });
+  document.getElementById('submit-success').style.display = 'none';
+  document.getElementById('submit-body').style.display = '';
+  document.getElementById('submit-footer').style.display = '';
+  document.getElementById('step-bar').style.display = '';
+  document.getElementById('step-back-btn').style.display = 'none';
+  document.getElementById('step-next-btn').disabled = true;
+  document.getElementById('step-next-btn').textContent = 'Continue →';
+  document.querySelectorAll('.select-chip').forEach(c => c.classList.remove('active'));
+  document.getElementById('q-text-en').value = '';
+  document.getElementById('q-text-am').value = '';
+  showScreen('submit-screen');
+}
+
+function closeSubmit() {
+  showScreen('app');
+}
+
+function selectChip(key, val, el) {
+  const panel = el.closest('.step-panel');
+  const group = el.closest('.form-group');
+  group.querySelectorAll('.select-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  state.submitData[key] = val;
+  checkStepValid();
+}
+
+function checkStepValid() {
+  const nextBtn = document.getElementById('step-next-btn');
+  let valid = false;
+  if (currentStep === 1) valid = !!state.submitData.type;
+  else if (currentStep === 2) valid = !!state.submitData.grade && !!state.submitData.subject;
+  else if (currentStep === 3) valid = document.getElementById('q-text-en').value.trim().length > 10;
+  else if (currentStep === 4) valid = !!state.submitData.source;
+  nextBtn.disabled = !valid;
+}
+
+function updateChar(id, countId, max) {
+  const val = document.getElementById(id).value.length;
+  document.getElementById(countId).textContent = `${val} / ${max}`;
+  checkStepValid();
+}
+
+function nextStep() {
+  if (currentStep < TOTAL_STEPS) {
+    document.getElementById(`panel-${currentStep}`).classList.remove('active');
+    document.getElementById(`step-${currentStep}`).classList.remove('active');
+    document.getElementById(`step-${currentStep}`).classList.add('done');
+    currentStep++;
+    document.getElementById(`panel-${currentStep}`).classList.add('active');
+    document.getElementById(`step-${currentStep}`).classList.add('active');
+    document.getElementById('step-back-btn').style.display = '';
+    document.getElementById('step-next-btn').textContent = currentStep === TOTAL_STEPS ? 'Submit ✓' : 'Continue →';
+    document.getElementById('step-next-btn').disabled = true;
+    checkStepValid();
+  } else {
+    submitQuestion();
+  }
+}
+
+function prevStep() {
+  if (currentStep > 1) {
+    document.getElementById(`panel-${currentStep}`).classList.remove('active');
+    document.getElementById(`step-${currentStep}`).classList.remove('active');
+    currentStep--;
+    document.getElementById(`panel-${currentStep}`).classList.add('active');
+    document.getElementById(`step-${currentStep}`).classList.remove('done');
+    document.getElementById(`step-${currentStep}`).classList.add('active');
+    if (currentStep === 1) document.getElementById('step-back-btn').style.display = 'none';
+    document.getElementById('step-next-btn').textContent = 'Continue →';
+    document.getElementById('step-next-btn').disabled = false;
+  }
+}
+
+function submitQuestion() {
+  // In production: send to your backend / Telegram Bot API
+  const payload = {
+    ...state.submitData,
+    question_en: document.getElementById('q-text-en').value.trim(),
+    question_am: document.getElementById('q-text-am').value.trim(),
+    submitted_at: new Date().toISOString(),
+  };
+  console.log('Submitted:', payload);
+
+  // Notify via Telegram Bot (production: call your bot's sendMessage API)
+  if (window.Telegram?.WebApp) {
+    Telegram.WebApp.sendData(JSON.stringify(payload));
+  }
+
+  document.getElementById('submit-body').style.display = 'none';
+  document.getElementById('submit-footer').style.display = 'none';
+  document.getElementById('step-bar').style.display = 'none';
+  document.getElementById('submit-success').style.display = 'flex';
+}
+
+// ══ SCREEN SWITCHER ══
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ══ INIT ══
+if (state.subscribed) {
+  showScreen('app');
+  renderFeed();
+}
+</script>
+</body>
+</html>
